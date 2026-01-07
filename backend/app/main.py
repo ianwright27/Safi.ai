@@ -1,8 +1,8 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
-from schemas import SmokePredictionRequest, SmokePredictionResponse
-from predictor import predict_smoke_risk
+from app.schemas import SmokePredictionRequest, SmokePredictionResponse
+from app.predictor import predict_smoke_risk
 
 app = FastAPI(
     title="Smoke Risk Prediction API",

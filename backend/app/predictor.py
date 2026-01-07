@@ -1,5 +1,5 @@
 import pandas as pd
-from model import get_pipeline
+from app.model import get_pipeline
 
 THRESHOLD = 0.25
 
