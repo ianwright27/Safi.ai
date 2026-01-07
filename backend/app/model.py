@@ -1,7 +1,8 @@
-import joblib
 from pathlib import Path
+import joblib
 
-MODEL_PATH = Path("../models/smoke_prediction_pipeline_v1.joblib")
+BASE_DIR = Path(__file__).resolve().parent.parent
+MODEL_PATH = BASE_DIR / "models" / "smoke_prediction_pipeline_v1.joblib"
 
 _pipeline = None
 
