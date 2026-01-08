@@ -1,0 +1,105 @@
+
+.logo{
+    font-weight: bold; 
+    color:#b3b3b3;
+}
+
+.time-fields{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content:space-around;
+}
+
+.time-field label{
+    font-weight: bold;
+    color: #555555;
+}
+
+input, select{
+    font-size: 16px;
+    color:#474747; 
+    border: 2px solid #c2c2c2;
+    border-radius: 10px;
+    padding: 10px; 
+    background-color: #fafafa;
+}
+
+.day-weather-display{
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color:#444444; 
+}
+
+.predict-btn{
+    padding: 10px; 
+    padding-left: 20px;
+    padding-right: 20px;
+    border: 2px solid #000; 
+    border-radius: 10px; 
+    background-color: #000000; 
+    color: #ffffff; 
+    font-weight: bold; 
+    font-size: 16px;
+    margin-top: 10px;
+}
+.predict-btn:hover {
+    background-color: #181818; 
+    color: #ffffff; 
+    cursor: pointer; 
+}
+.predict-btn:active {
+    border-color: #202020;
+    background-color: #202020; 
+    color: #f0f0f0; 
+    cursor: pointer; 
+}
+
+
+.prediction-card {
+  margin-top: 1.5rem;
+  padding: 1.2rem;
+  border-top: 4px solid #c2c2c2;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  background: #f9fafb;
+}
+
+.risk-text {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.risk-text.green { color: #2e7d32; }
+.risk-text.orange { color: #ed6c02; }
+.risk-text.red { color: #d32f2f; }
+
+.probability-bar {
+  width: 100%;
+  height: 12px;
+  background: #e0e0e0;
+  border-radius: 999px;
+  overflow: hidden;
+  margin: 0.5rem 0;
+}
+
+.probability-fill {
+  height: 100%;
+  transition: width 0.4s ease;
+}
+
+.probability-fill.green { background: #4caf50; }
+.probability-fill.orange { background: #ff9800; }
+.probability-fill.red { background: #f44336; }
+
+.probability-label {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.risk-message {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+}
