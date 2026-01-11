@@ -107,7 +107,7 @@ export default function PredictPage() {
     <div style={{ maxWidth: 480, margin: "2rem auto", padding: "1rem" }}>
       <h1 className="logo">Safi.ai</h1>
 
-      <p>→ When your windows are... </p>
+      <p>→ <strong>When your windows are...</strong></p>
       <div className="time-fields">
         <div className="time-field">
           <TimeField
@@ -145,7 +145,7 @@ export default function PredictPage() {
 
       <div style={{ marginBottom: "1.5rem" }}>
         <label style={{ display: "block", marginBottom: "0.5rem" }}>
-          → Is today a special occasion?
+          <strong>→ Is today a special occasion?</strong>
         </label>
 
         <select
