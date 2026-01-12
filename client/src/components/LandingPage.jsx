@@ -50,55 +50,8 @@ export default function LandingPage() {
       {/* Footer */}
       <Footer />
 
-
-
     {/* MODAL */}
     <SmokeRiskModal open={modalOpen} onClose={closeModal} />
-
-    {/* MODAL
-      {modalOpen && (
-        <div className="modal-backdrop" onClick={closeModal}>
-          <div className="modal" onClick={(e) => e.stopPropagation()}>
-            <h3>Smoke Risk Prediction</h3>
-            <p className="modal-sub">Version 1 — neighborhood-level early warning</p>
-
-            <div className="input-group">
-              <label>When are your windows open?</label>
-              <div className="time-row">
-                <input type="time" />
-                <span>to</span>
-                <input type="time" />
-              </div>
-            </div>
-
-            <div className="info">
-              <div><strong>Today:</strong> Tuesday</div>
-              <div><strong>Weather:</strong> 25°C · Windy</div>
-            </div>
-
-            <div className="input-group">
-              <label>Is today a special occasion?</label>
-              <select>
-                <option>No, it’s a normal day</option>
-                <option>Yes, it’s a special occasion</option>
-              </select>
-            </div>
-
-            {!predicted ? (
-              <button className="primary full" onClick={() => setPredicted(true)}>
-                Predict Smoke Risk
-              </button>
-            ) : (
-              <div className="result">
-                <div className="risk-bar"><div className="risk-fill moderate" /></div>
-                <span className="risk-label">Moderate Risk</span>
-                <p className="risk-text">Moderate smoke risk this evening.</p>
-              </div>
-            )}
-          </div>
-        </div>
-      )} */}
-
     </div>
   );
 }
