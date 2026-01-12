@@ -11,6 +11,7 @@ It forecasts the probability of smoke pollution events in your area, allowing re
 
 This project is a **working prototype** with a modern, responsive UI built with **React** and a **FastAPI** backend that serves predictions using a trained machine learning model.
 
+Live 🔗: [https://safi-ai.vercel.app/](https://safi-ai.vercel.app/)
 ---
 
 ## Features
@@ -48,6 +49,7 @@ This project is a **working prototype** with a modern, responsive UI built with 
 | Machine Learning | Python, scikit-learn, pandas, joblib |
 | APIs          | Free weather API, Geolocation |
 | Dev / Build   | Node.js, npm, Vite |
+| Deploy   | Vercel, Railway |
 
 ---
 
@@ -68,3 +70,6 @@ source venv/bin/activate   # Linux / Mac
 venv\Scripts\activate      # Windows
 pip install -r requirements.txt
 uvicorn app.main:app --reload
+```
+
+In this file, ```client/src/api/predict.js```, make sure to switch to **LOCAL_API_URL** (local FastAPI endpoint) as the default **PUBLIC_API_URL** points to the deployed backend url on **Railway**.
