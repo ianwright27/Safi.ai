@@ -30,10 +30,13 @@ def predict(payload: SmokePredictionRequest):
 
 from fastapi import Depends
 from sqlalchemy.orm import Session
-from dependencies import get_db
-from model import SmokeObservation 
-
+from app.dependencies import get_db
+from app.models import SmokeObservation 
+from app.database import Base, engine
 from pydantic import BaseModel
+
+Base.metadata.create_all(bind=engine)
+    
 
 class SmokeDataIn(BaseModel):
     time_opening_windows: str

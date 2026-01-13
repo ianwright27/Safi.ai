@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, Float, String, Boolean, DateTime
 from datetime import datetime
-from database import Base
+from app.database import Base
 
 class SmokeObservation(Base):
     __tablename__ = "smoke_observations"
