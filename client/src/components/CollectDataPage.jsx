@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { timeToMinutes } from "../utils/time.js";
+import { getUserLocation } from "../utils/location.js";
 import { formatDate, getDayOfWeek } from "../utils/dateHelpers.js";
 import { collectSmokeData } from "../api/collect.js";
 import TimeField from "./TimeField.jsx"; // assuming you already have this component
@@ -18,6 +20,7 @@ export default function CollectSmokeDataPage() {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
+  const [loadPayload, setLoadPayload] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -33,16 +36,27 @@ export default function CollectSmokeDataPage() {
       const formattedDate = formatDate(form.date); // "YYYY-MM-DD"
       const dayOfWeek = getDayOfWeek(form.date); // "Friday", etc.
 
+      // generate for me lat and long using geolocation api
+      const location = await getUserLocation();
+
       const payload = {
-        start_time: form.start_time || "00:00",
-        end_time: form.end_time || "00:00",
-        is_special: form.is_special,
-        notes: form.notes,
-        weather: form.weather,
-        stove_used: form.stove_used,
+        time_opening_windows: timeToMinutes(form.start_time) || "00:00",
+        time_closing_windows: timeToMinutes(form.end_time) || "00:00",
+        smoke_detected: false, // default false for data collection 
+        time_sensing_smoke: "0000", // default "0000" for data collection 
+        duration: timeToMinutes(form.end_time) - timeToMinutes(form.start_time), 
         date: formattedDate,
         day: dayOfWeek,
+        occassion: form.is_special,
+        weather: form.weather,
+        type_of_smoke: form.stove_used, 
+        lat: location.lat,
+        lon: location.lon,
+        // notes: form.notes,
       };
+      setLoadPayload(JSON.stringify(payload));
+      console.log("Submitting payload:");
+      console.log(JSON.stringify(payload));
 
       await collectSmokeData(payload);
       setSubmitted(true);
@@ -56,6 +70,7 @@ export default function CollectSmokeDataPage() {
         date: "",
       });
     } catch (err) {
+        console.log(err);
       setError(err.message || "Failed to submit data");
     } finally {
       setLoading(false);
