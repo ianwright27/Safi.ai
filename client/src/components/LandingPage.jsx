@@ -5,9 +5,11 @@ import HeroSection from "./HeroSection.jsx";
 import OurProcess from "./OurProcess.jsx";
 import CaseStudies from "./CaseStudies.jsx";
 import SmokeRiskModal from "./SmokeRiskModal.jsx";
+import CollectDataPage from "./CollectDataPage.jsx"; 
 
 export default function LandingPage() {
   const [modalOpen, setModalOpen] = useState(false);
+  const [dataModalOpen, setDataModalOpen] = useState(false);
   const [predicted, setPredicted] = useState(false);
   const [activePage, setActivePage] = useState("home"); // 'home', 'process', 'caseStudies'
 
@@ -31,6 +33,8 @@ export default function LandingPage() {
     mainContent = <OurProcess />;
   } else if (activePage === "caseStudies") {
     mainContent = <CaseStudies />;
+  } else if (activePage === "volunteer") {
+    mainContent = <CollectDataPage />;
   }
 
   return (

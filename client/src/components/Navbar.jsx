@@ -40,6 +40,8 @@ export default function Navbar({ onTry, onNavClick, activePage }) {
         <button style={linkStyle("home")} onClick={() => onNavClick("home")}>Home</button>
         <button style={linkStyle("process")} onClick={() => onNavClick("process")}>Our Process</button>
         <button style={linkStyle("caseStudies")} onClick={() => onNavClick("caseStudies")}>Case Studies</button>
+        <button style={linkStyle("volunteer")} onClick={() => onNavClick("volunteer")}>Volunteer</button>
+        
         <button
           onClick={onTry}
           style={{ backgroundColor: "#2f4f44", color: "#fff", border: "none", padding: "0.5rem 1rem", borderRadius: "0.25rem", cursor: "pointer" }}

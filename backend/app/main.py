@@ -39,11 +39,11 @@ Base.metadata.create_all(bind=engine)
     
 
 class SmokeDataIn(BaseModel):
-    time_opening_windows: str
-    time_closing_windows: str
+    time_opening_windows: int
+    time_closing_windows: int
     smoke_detected: bool
-    time_sensing_smoke: str
-    duration: str
+    time_sensing_smoke: int | None
+    duration: int | None
     date: str
     day: str
     occassion: str
