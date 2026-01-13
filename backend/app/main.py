@@ -24,3 +24,35 @@ def predict(payload: SmokePredictionRequest):
         return predict_smoke_risk(payload.dict())
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+
+from fastapi import Depends
+from sqlalchemy.orm import Session
+from dependencies import get_db
+from "./models" import SmokeObservation # rewrite the import according to your project structure
+
+from pydantic import BaseModel
+
+class SmokeDataIn(BaseModel):
+    time_opening_windows: str
+    time_closing_windows: str
+    smoke_detected: bool
+    time_sensing_smoke: str
+    duration: str
+    date: str
+    day: str
+    occassion: str
+    weather: str
+    type_of_smoke: str
+    lat: float
+    long: float
+
+@app.post("/collect-data")
+def collect_data(data: SmokeDataIn, db: Session = Depends(get_db)):
+    record = SmokeObservation(**data.dict())
+    db.add(record)
+    db.commit()
+    db.refresh(record)
+
+    return {"status": "saved", "id": record.id}
