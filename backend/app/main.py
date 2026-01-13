@@ -26,11 +26,12 @@ def predict(payload: SmokePredictionRequest):
         raise HTTPException(status_code=500, detail=str(e))
 
 
+# collecting data endpoint for improving model
 
 from fastapi import Depends
 from sqlalchemy.orm import Session
 from dependencies import get_db
-from "./models" import SmokeObservation # rewrite the import according to your project structure
+from model import SmokeObservation 
 
 from pydantic import BaseModel
 
