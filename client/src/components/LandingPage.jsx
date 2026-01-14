@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar.jsx";
 import NewNavbar from "./NewNavbar.jsx";
 import Footer from "./Footer.jsx";
@@ -7,6 +7,7 @@ import OurProcess from "./OurProcess.jsx";
 import CaseStudies from "./CaseStudies.jsx";
 import SmokeRiskModal from "./SmokeRiskModal.jsx";
 import CollectDataPage from "./CollectDataPage.jsx"; 
+
 
 export default function LandingPage() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -20,25 +21,7 @@ export default function LandingPage() {
     setPredicted(false);
   };
 
-  useEffect(() => {
-    async function loadWeather() {
-      try {
-        const { lat, lon } = await getUserLocation();
-        setCoords({ lat, lon });
-
-        const weather = await fetchWeather(lat, lon);
-        setWeather(weather); 
-        console.log("Fetched weather:", weather);
-      } catch (err) {
-        alert("Could not fetch location or weather data. Please try again."); 
-        console.error("Location/Weather error:", err);
-        setWeatherError(true);
-      }
-    }
-
-    loadWeather();
-  }, []);
-
+  
 
   // Handle navbar navigation
   const handleNavClick = (page) => {
