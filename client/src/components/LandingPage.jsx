@@ -20,6 +20,24 @@ export default function LandingPage() {
     setPredicted(false);
   };
 
+  useEffect(() => {
+    async function loadWeather() {
+      try {
+        const { lat, lon } = await getUserLocation();
+        setCoords({ lat, lon });
+
+        const weather = await fetchWeather(lat, lon);
+        setWeather(weather);
+      } catch (err) {
+        console.error("Location/Weather error:", err);
+        setWeatherError(true);
+      }
+    }
+
+    loadWeather();
+  }, []);
+
+
   // Handle navbar navigation
   const handleNavClick = (page) => {
     setActivePage(page);
