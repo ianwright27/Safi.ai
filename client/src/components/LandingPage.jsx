@@ -27,8 +27,10 @@ export default function LandingPage() {
         setCoords({ lat, lon });
 
         const weather = await fetchWeather(lat, lon);
-        setWeather(weather);
+        setWeather(weather); 
+        console.log("Fetched weather:", weather);
       } catch (err) {
+        alert("Could not fetch location or weather data. Please try again."); 
         console.error("Location/Weather error:", err);
         setWeatherError(true);
       }
