@@ -1,0 +1,16 @@
+{
+  "name": "Safi AI",
+  "short_name": "Safi",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#66ac93",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/safi-ai-logo.png",
+      "sizes": "159x159",
+      "type": "image/png"
+    }
+  ]
+}
