@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Navbar from "./Navbar.jsx";
+import NewNavbar from "./NewNavbar.jsx";
 import Footer from "./Footer.jsx";
 import HeroSection from "./HeroSection.jsx";
 import OurProcess from "./OurProcess.jsx";
@@ -40,7 +41,8 @@ export default function LandingPage() {
   return (
     <div className="page" style={{ backgroundColor: "#f6f7f5", color: "#2f4f44", fontFamily: 'system-ui, sans-serif', minHeight: '100vh' }}>
       {/* Navbar */}
-      <Navbar
+     
+      <NewNavbar
         onTry={openModal}
         onNavClick={handleNavClick}
         activePage={activePage}
