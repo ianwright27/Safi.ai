@@ -61,6 +61,7 @@ User Decision Support`}
       <section style={{ marginTop: '3rem' }}>
         <h2 style={{ fontSize: '1.4rem', marginBottom: '0.5rem', color: '#2f4f44' }}>Data Collection</h2>
         <p style={{ color: '#4b5f57' }}>Manual observation over time, recording time windows, days, weather, and special occasions.</p>
+        <p style={{ color: '#4b5f57' }}>With the new update, as of <strong>14th Jan 2026</strong>, data collection is now automated through a web interface. Anyone can anonymously submit data. This allows for more comprehensive and timely data collection. </p>
       </section>
 
       <section style={{ marginTop: '3rem' }}>

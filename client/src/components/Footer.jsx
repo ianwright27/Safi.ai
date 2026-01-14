@@ -49,7 +49,7 @@ export default function Footer() {
           {/* Solutions */}
           <div>
             <div style={{ fontWeight: 600, color: '#2f4f44', marginBottom: '0.5rem' }}>Solutions</div>
-            <p style={{ cursor: 'pointer', color: '#4b5f57' }}>Our Process</p>
+            <p style={{ cursor: 'pointer', color: '#4b5f57' }}>The Process</p>
             <p style={{ color: '#a0a0a0', cursor: 'not-allowed' }}>Real Estate</p>
             <p style={{ color: '#a0a0a0', cursor: 'not-allowed' }}>Medical Facilities</p>
             <p style={{ color: '#a0a0a0', cursor: 'not-allowed' }}>Office Spaces</p>

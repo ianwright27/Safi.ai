@@ -38,7 +38,7 @@ export default function Navbar({ onTry, onNavClick, activePage }) {
       onClick={() => onNavClick("home")}>Safi AI</div>
       <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
         <button style={linkStyle("home")} onClick={() => onNavClick("home")}>Home</button>
-        <button style={linkStyle("process")} onClick={() => onNavClick("process")}>Our Process</button>
+        <button style={linkStyle("process")} onClick={() => onNavClick("process")}>The Process</button>
         <button style={linkStyle("caseStudies")} onClick={() => onNavClick("caseStudies")}>Case Studies</button>
         <button style={linkStyle("volunteer")} onClick={() => onNavClick("volunteer")}>Volunteer</button>
         
