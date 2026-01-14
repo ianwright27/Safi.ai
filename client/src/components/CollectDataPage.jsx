@@ -85,10 +85,10 @@ export default function CollectSmokeDataPage() {
     <div className="page" style={{ backgroundColor: "#f6f7f5", color: "#2f4f44", fontFamily: 'system-ui, sans-serif', minHeight: "100vh" }}>
       <main style={{ padding: "2rem", maxWidth: "600px", margin: "0 auto" }}>
         <h2>Collect Smoke Data</h2>
-        <p className="modal-sub">Thank you for agreeing to participate in the collection of data.Note that you are agreeing to share your data with us for research purposes, that includes your location and time data. This information will be used for research purposes only and will aid the improvement in accuracy of the Safi AI model.</p>
+        <p className="modal-sub">Thank you for agreeing to participate in the collection of this data. Note that you are agreeing to share your data with us for research purposes, which includes <strong>your location</strong> and time data <strong>(you may be prompted by Safi AI to give permission for location access)</strong>. This information will be used for research purposes only and will aid the improvement in accuracy of the Safi AI model not only for one location but many. Thank you for contributing to a healthier environment and a far much better tomorrow.</p>
 
         <div className="input-group">
-          <label>Date</label>
+          <label>Date *</label>
           <input
             type="date"
             name="date"
@@ -98,7 +98,7 @@ export default function CollectSmokeDataPage() {
         </div>
 
         <div className="input-group">
-          <label>When were your windows open today?</label>
+          <label>When were your windows open today? *</label>
           <div className="time-row">
             <TimeField
               label="Start"
@@ -117,7 +117,7 @@ export default function CollectSmokeDataPage() {
         </div>
 
         <div className="input-group">
-          <label>Was smoke detected today in your surroundings?</label>
+          <label>Was smoke detected today in your surroundings? *</label>
           <select name="smoke_detected" value={form.smoke_detected} onChange={handleChange}>
             <option value="yes">Yes</option>
             <option value="no">No</option>
@@ -127,10 +127,10 @@ export default function CollectSmokeDataPage() {
        { form.smoke_detected === "yes" && (
         <>
         <div className="input-group">
-          <label>If smoke was detected, when? </label>
+          <label>If smoke was detected, when? *</label>
           <div className="time-row">
             <TimeField
-              label="Time of Detection"
+              label="Time of Detection *"
               name="smoke_detection_time"
               value={form.smoke_detection_time || "00:00"}
               onChange={handleChange}
@@ -139,7 +139,7 @@ export default function CollectSmokeDataPage() {
         </div>
         
         <div className="input-group">
-            <label>Source of smoke</label>
+            <label>Source of smoke *</label>
             <select name="smoke_source" value={form.smoke_source} onChange={handleChange}>
                 <option value="garbage">Garbage</option>
                 <option value="stove">Stove</option>
@@ -150,7 +150,7 @@ export default function CollectSmokeDataPage() {
        )} 
 
         <div className="input-group">
-          <label>Is today a special occasion (like a holiday)?</label>
+          <label>Is today a special occasion (like a holiday)? *</label>
           <select name="is_special" value={form.is_special} onChange={handleChange}>
             <option value="no">No, it's a normal day</option>
             <option value="yes">Yes, it's a special occasion</option>
@@ -158,8 +158,9 @@ export default function CollectSmokeDataPage() {
         </div>
 
         <div className="input-group">
-            <label>Weather</label>
+            <label>Weather *</label>
             <select name="weather" value={form.weather} onChange={handleChange}>
+                <option value="">...</option>
                 <option value="sunny">Sunny</option>
                 <option value="rainy">Rainy</option>
                 <option value="windy">Windy</option>

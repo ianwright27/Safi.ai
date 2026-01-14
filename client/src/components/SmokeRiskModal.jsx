@@ -92,7 +92,9 @@ export default function SmokeRiskModal({ open, onClose }) {
     <div className="modal-backdrop" onClick={onClose}>
       <div className="modal" onClick={(e) => e.stopPropagation()}>
         <h3>Smoke Risk Prediction</h3>
-        <p className="modal-sub">Version 1 — neighborhood-level early warning</p>
+        <p className="modal-sub">Version 1 — neighborhood-level early warning <br></br> 
+        Location: <a className="activeLocation" href="https://maps.app.goo.gl/udeBm7oZ2fmie8Fx5">South B, Nairobi, Kenya</a>
+        </p>
 
         <div className="input-group">
           <label>When are your windows open?</label>

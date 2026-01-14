@@ -59,6 +59,8 @@
         .risk-label { font-weight: 600; }
         .risk-text { font-size: 0.85rem; color: var(--muted); }
         .try-again { color: var(--green); cursor: pointer; margin-left: 0.5rem; text-decoration: underline; }
+        .activeLocation { color: var(--green); text-decoration: none; font-weight: bold; width:100%}
+        .activeLocation:hover { text-decoration: underline; }
 
         /* FOOTER */
         .footer { background: #eef2f0; padding: 3rem 1.5rem; margin-top: 4rem; }
