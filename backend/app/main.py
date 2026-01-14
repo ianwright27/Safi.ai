@@ -51,6 +51,7 @@ class SmokeDataIn(BaseModel):
     type_of_smoke: str
     lat: float
     long: float
+    notes: str | None
 
 @app.post("/collect-data")
 def collect_data(data: SmokeDataIn, db: Session = Depends(get_db)):

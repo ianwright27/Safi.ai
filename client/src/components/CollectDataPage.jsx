@@ -12,9 +12,11 @@ export default function CollectSmokeDataPage() {
     start_time: "",
     end_time: "",
     is_special: "no",
+    smoke_detected: "no",
+    smoke_detection_time: "",
     notes: "",
     weather: "",
-    stove_used: "",
+    smoke_source: "",
     date: "",
   });
   const [loading, setLoading] = useState(false);
@@ -40,19 +42,19 @@ export default function CollectSmokeDataPage() {
       const location = await getUserLocation();
 
       const payload = {
-        time_opening_windows: timeToMinutes(form.start_time) || "00:00",
-        time_closing_windows: timeToMinutes(form.end_time) || "00:00",
-        smoke_detected: false, // default false for data collection 
-        time_sensing_smoke: "0000", // default "0000" for data collection 
+        time_opening_windows: timeToMinutes(form.start_time) || 0,
+        time_closing_windows: timeToMinutes(form.end_time) || 0,
+        smoke_detected: form.smoke_detected, // default false for data collection 
+        time_sensing_smoke: timeToMinutes(form.smoke_detection_time) || 0, // default "0000" for data collection 
         duration: timeToMinutes(form.end_time) - timeToMinutes(form.start_time), 
         date: formattedDate,
         day: dayOfWeek,
         occassion: form.is_special,
         weather: form.weather,
-        type_of_smoke: form.stove_used, 
+        type_of_smoke: form.smoke_source, 
         lat: location.lat,
-        lon: location.lon,
-        // notes: form.notes,
+        long: location.lon,
+        notes: form.notes,
       };
       setLoadPayload(JSON.stringify(payload));
       console.log("Submitting payload:");
@@ -64,9 +66,11 @@ export default function CollectSmokeDataPage() {
         start_time: "",
         end_time: "",
         is_special: "no",
+        smoke_detected: "no",
+        smoke_detection_time: "",
         notes: "",
         weather: "",
-        stove_used: "",
+        smoke_source: "",
         date: "",
       });
     } catch (err) {
@@ -81,7 +85,7 @@ export default function CollectSmokeDataPage() {
     <div className="page" style={{ backgroundColor: "#f6f7f5", color: "#2f4f44", fontFamily: 'system-ui, sans-serif', minHeight: "100vh" }}>
       <main style={{ padding: "2rem", maxWidth: "600px", margin: "0 auto" }}>
         <h2>Collect Smoke Data</h2>
-        <p className="modal-sub">Version 1 — Neighborhood-level early warning</p>
+        <p className="modal-sub">Thank you for agreeing to participate in the collection of data.Note that you are agreeing to share your data with us for research purposes, that includes your location and time data. This information will be used for research purposes only and will aid the improvement in accuracy of the Safi AI model.</p>
 
         <div className="input-group">
           <label>Date</label>
@@ -94,7 +98,7 @@ export default function CollectSmokeDataPage() {
         </div>
 
         <div className="input-group">
-          <label>When are your windows open?</label>
+          <label>When were your windows open today?</label>
           <div className="time-row">
             <TimeField
               label="Start"
@@ -113,7 +117,40 @@ export default function CollectSmokeDataPage() {
         </div>
 
         <div className="input-group">
-          <label>Is today a special occasion?</label>
+          <label>Was smoke detected today in your surroundings?</label>
+          <select name="smoke_detected" value={form.smoke_detected} onChange={handleChange}>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </div>
+
+       { form.smoke_detected === "yes" && (
+        <>
+        <div className="input-group">
+          <label>If smoke was detected, when? </label>
+          <div className="time-row">
+            <TimeField
+              label="Time of Detection"
+              name="smoke_detection_time"
+              value={form.smoke_detection_time || "00:00"}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
+        
+        <div className="input-group">
+            <label>Source of smoke</label>
+            <select name="smoke_source" value={form.smoke_source} onChange={handleChange}>
+                <option value="garbage">Garbage</option>
+                <option value="stove">Stove</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
+        </>
+       )} 
+
+        <div className="input-group">
+          <label>Is today a special occasion (like a holiday)?</label>
           <select name="is_special" value={form.is_special} onChange={handleChange}>
             <option value="no">No, it's a normal day</option>
             <option value="yes">Yes, it's a special occasion</option>
@@ -121,25 +158,14 @@ export default function CollectSmokeDataPage() {
         </div>
 
         <div className="input-group">
-          <label>Weather</label>
-          <input
-            type="text"
-            name="weather"
-            placeholder="e.g., cloudywithoutwind"
-            value={form.weather}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className="input-group">
-          <label>Stove used?</label>
-          <input
-            type="text"
-            name="stove_used"
-            placeholder="e.g., stove"
-            value={form.stove_used}
-            onChange={handleChange}
-          />
+            <label>Weather</label>
+            <select name="weather" value={form.weather} onChange={handleChange}>
+                <option value="sunny">Sunny</option>
+                <option value="rainy">Rainy</option>
+                <option value="windy">Windy</option>
+                <option value="cloudy">Cloudy</option>
+                <option value="cloudywithoutwind">Cloudy without wind</option>
+            </select>
         </div>
 
         <div className="input-group">
@@ -162,3 +188,5 @@ export default function CollectSmokeDataPage() {
     </div>
   );
 }
+
+// "time_opening_windows","time_closing_windows","smoke_detected","time_sensing_smoke","duration","date","day","occassion","weather","type_of_smoke"

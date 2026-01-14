@@ -23,4 +23,6 @@ class SmokeObservation(Base):
     lat = Column(Float)
     long = Column(Float)
 
+    notes = Column(String, nullable=True)
+
     created_at = Column(DateTime, default=datetime.utcnow)

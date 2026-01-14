@@ -24,3 +24,6 @@ client/.env
 *.njsproj
 *.sln
 *.sw?
+
+# misc 
+example.json
