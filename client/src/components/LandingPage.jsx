@@ -57,7 +57,10 @@ export default function LandingPage() {
       </main>
 
       {/* Footer */}
-      <Footer />
+      <Footer
+      onLinkClick={handleNavClick}
+      activePage={activePage}
+        />
 
     {/* MODAL */}
     <SmokeRiskModal open={modalOpen} onClose={closeModal} />

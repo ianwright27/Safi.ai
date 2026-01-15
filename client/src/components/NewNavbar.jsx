@@ -53,8 +53,8 @@ export default function NewNavbar({ onTry, onNavClick, activePage }) {
           }}
         >
           <button style={desktopLinkStyle("home")} onClick={() => onNavClick("home")}>Home</button>
-          <button style={desktopLinkStyle("process")} onClick={() => onNavClick("process")}>The Process</button>
-          <button style={desktopLinkStyle("caseStudies")} onClick={() => onNavClick("caseStudies")}>Case Studies</button>
+          {/* <button style={desktopLinkStyle("process")} onClick={() => onNavClick("process")}>The Process</button> */}
+          {/* <button style={desktopLinkStyle("caseStudies")} onClick={() => onNavClick("caseStudies")}>Case Studies</button> */}
           <button style={desktopLinkStyle("volunteer")} onClick={() => onNavClick("volunteer")}>Volunteer</button>
 
           <button

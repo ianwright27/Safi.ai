@@ -85,7 +85,7 @@ export default function CollectSmokeDataPage() {
     <div className="page" style={{ backgroundColor: "#f6f7f5", color: "#2f4f44", fontFamily: 'system-ui, sans-serif', minHeight: "100vh" }}>
       <main style={{ padding: "2rem", maxWidth: "600px", margin: "0 auto" }}>
         <h2>Collect Smoke Data</h2>
-        <p className="modal-sub">Thank you for agreeing to participate in the collection of this data. Note that you are agreeing to share your data with us for research purposes, which includes <strong>your location</strong> and time data <strong>(you may be prompted by Safi AI to give permission for location access)</strong>. This information will be used for research purposes only and will aid the improvement in accuracy of the Safi AI model not only for one location but many. Thank you for contributing to a healthier environment and a far much better tomorrow.</p>
+        <p className="modal-sub"><strong>Thank you for contributing to Safi AI’s research.</strong><br></br> By continuing, you consent to the collection of limited data to support environmental research and improve the accuracy of the Safi AI model. <br></br> This may include <strong>your approximate location</strong> and <strong>time of submission</strong> (you may be asked to grant location access).<br></br> Your data is used strictly for <strong>research purposes</strong>, and helps improve air-quality predictions across multiple regions, not just your own.<br></br>Thank you for playing a part in building a healthier environment and a better future.</p>
 
         <div className="input-group">
           <label>Date *</label>

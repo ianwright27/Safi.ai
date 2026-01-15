@@ -20,7 +20,7 @@
 
 import React from 'react';
 
-export default function Footer() {
+export default function Footer({ onLinkClick, activePage }) {
   return (
     <footer
       style={{
@@ -49,7 +49,7 @@ export default function Footer() {
           {/* Solutions */}
           <div>
             <div style={{ fontWeight: 600, color: '#2f4f44', marginBottom: '0.5rem' }}>Solutions</div>
-            <p style={{ cursor: 'pointer', color: '#4b5f57' }}>The Process</p>
+            <p style={{ cursor: 'pointer', color: '#4b5f57' }}  onClick={() => onLinkClick("process")}>The Process</p>
             <p style={{ color: '#a0a0a0', cursor: 'not-allowed' }}>Real Estate</p>
             <p style={{ color: '#a0a0a0', cursor: 'not-allowed' }}>Medical Facilities</p>
             <p style={{ color: '#a0a0a0', cursor: 'not-allowed' }}>Office Spaces</p>
@@ -59,7 +59,7 @@ export default function Footer() {
             <div style={{ fontWeight: 600, color: '#2f4f44', marginBottom: '0.5rem' }}>Resources</div>
             <p style={{ color: '#a0a0a0', cursor: 'not-allowed' }}>Docs</p>
             <p style={{ color: '#a0a0a0', cursor: 'not-allowed' }}>Tutorials</p>
-            <p style={{ cursor: 'pointer', color: '#4b5f57' }}>Case Studies</p>
+            <p style={{ cursor: 'pointer', color: '#4b5f57' }} onClick={() => onLinkClick("caseStudies")}>Case Studies</p>
             <p style={{ color: '#a0a0a0', cursor: 'not-allowed' }}>Blog</p>
           </div>
           {/* Company */}
