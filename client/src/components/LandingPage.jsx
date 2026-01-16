@@ -6,22 +6,33 @@ import HeroSection from "./HeroSection.jsx";
 import OurProcess from "./OurProcess.jsx";
 import CaseStudies from "./CaseStudies.jsx";
 import SmokeRiskModal from "./SmokeRiskModal.jsx";
+import SmokeRisk from "./SmokeRisk.jsx";
 import CollectDataPage from "./CollectDataPage.jsx"; 
 
 
 export default function LandingPage() {
+  const isMobile = window.innerWidth <= 768;
+
   const [modalOpen, setModalOpen] = useState(false);
   const [dataModalOpen, setDataModalOpen] = useState(false);
   const [predicted, setPredicted] = useState(false);
-  const [activePage, setActivePage] = useState("home"); // 'home', 'process', 'caseStudies'
+  const [activePage, setActivePage] = useState("home"); 
+  // 'home' | 'process' | 'caseStudies' | 'volunteer' | 'smokerisk'
 
-  const openModal = () => setModalOpen(true);
+  const openSmokeRisk = () => {
+    if (window.innerWidth <= 768) {
+      setActivePage("smokerisk");
+      window.scrollTo({ top: 0 });
+    } else {
+      setModalOpen(true);
+    }
+  };
+
   const closeModal = () => {
     setModalOpen(false);
     setPredicted(false);
   };
 
-  
 
   // Handle navbar navigation
   const handleNavClick = (page) => {
@@ -32,21 +43,24 @@ export default function LandingPage() {
   // Determine main content
   let mainContent;
   if (activePage === "home") {
-    mainContent = <HeroSection openModal={openModal} />;
+    mainContent = <HeroSection openSmokeRisk={openSmokeRisk} />;
   } else if (activePage === "process") {
     mainContent = <OurProcess />;
   } else if (activePage === "caseStudies") {
     mainContent = <CaseStudies />;
   } else if (activePage === "volunteer") {
     mainContent = <CollectDataPage />;
+  } else if (activePage === "smokerisk") {
+    mainContent = <SmokeRisk embedded />;
   }
+
 
   return (
     <div className="page" style={{ backgroundColor: "#f6f7f5", color: "#2f4f44", fontFamily: 'system-ui, sans-serif', minHeight: '100vh' }}>
       {/* Navbar */}
      
       <NewNavbar
-        onTry={openModal}
+        onTry={openSmokeRisk}
         onNavClick={handleNavClick}
         activePage={activePage}
       />

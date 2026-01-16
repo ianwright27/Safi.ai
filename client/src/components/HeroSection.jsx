@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function HeroSection({ openModal }) {
+export default function HeroSection({ openSmokeRisk }) {
   return (
     <div className="hero-section" style={{ padding: "2rem 1rem", maxWidth: "100%", margin: "0 auto" }}>
       {/* HERO */}
@@ -14,7 +14,7 @@ export default function HeroSection({ openModal }) {
         </p>
         <button
           className="primary"
-          onClick={openModal}
+          onClick={openSmokeRisk}
           style={{
             backgroundColor: "#2f4f44",
             color: "#fff",
