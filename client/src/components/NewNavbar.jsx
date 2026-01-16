@@ -136,12 +136,12 @@ export default function NewNavbar({ onTry, onNavClick, activePage }) {
         <button style={linkStyle("home")} onClick={() => { onNavClick("home"); setMenuOpen(false); }}>
           Home
         </button>
-        <button style={linkStyle("process")} onClick={() => { onNavClick("process"); setMenuOpen(false); }}>
+        {/* <button style={linkStyle("process")} onClick={() => { onNavClick("process"); setMenuOpen(false); }}>
           The Process
         </button>
         <button style={linkStyle("caseStudies")} onClick={() => { onNavClick("caseStudies"); setMenuOpen(false); }}>
           Case Studies
-        </button>
+        </button> */}
         <button style={linkStyle("volunteer")} onClick={() => { onNavClick("volunteer"); setMenuOpen(false); }}>
           Volunteer
         </button>
