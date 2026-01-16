@@ -39,6 +39,14 @@
           .nav-links { position: absolute; top: 56px; left: 0; right: 0; background: #f5f7f6; flex-direction: column; padding: 1rem; display: none; }
           .nav-links.open { display: flex; }
         }
+        .mobile-menu-btn, .mobile-menu-close-btn {
+          -webkit-tap-highlight-color: transparent;
+          outline: none;
+        }
+        .mobile-menu-btn:focus, .mobile-menu-close-btn:focus {
+          outline: none;
+        }
+
 
         /* MODAL */
         .modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.25); display: flex; align-items: center; justify-content: center; padding: 1rem; }

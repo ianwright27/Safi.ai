@@ -129,6 +129,7 @@ export default function NewNavbar({ onTry, onNavClick, activePage }) {
             fontSize: "1.5rem",
             cursor: "pointer",
           }}
+          className="mobile-menu-close-btn"
         >
           ✕
         </button>
