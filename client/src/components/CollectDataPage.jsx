@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { timeToMinutes } from "../utils/time.js";
 import { getUserLocation } from "../utils/location.js";
 import { formatDate, getDayOfWeek } from "../utils/dateHelpers.js";
@@ -43,6 +43,7 @@ export default function CollectSmokeDataPage() {
     smoke_source: "",
     date: "",
   });
+
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
@@ -53,79 +54,142 @@ export default function CollectSmokeDataPage() {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async () => {
+  useEffect(() => {
+    setForm(prev => ({
+      ...prev,
+      date: new Date().toISOString().split("T")[0]
+    }));
+  }, []);
 
-    /* 1) find out whether the form is empty */ 
-    // empty form template 
-    const empty_form = {date:'', end_time: '', is_special: 'no', notes:'', smoke_detected: 'no', smoke_detection_time: '', smoke_source:'', start_time: '', weather:''}; 
-    // check 
-    const isFormEmpty = (form.date == "" && form.end_time == "" && form.is_special == "no" && form.notes == "" && form.smoke_detected == "no" && form.smoke_detection_time == "" && form.smoke_source == "" && form.start_time == "" && form.weather == ""); 
-    // console.log("is form empty:" + isFormEmpty)
-    // console.log(form)
-    // console.log(empty_form)
+
+const handleSubmit = async () => {
+  // Always set date to TODAY
+  const today = new Date();
+  const formattedDate = formatDate(today); // YYYY-MM-DD
+  const dayOfWeek = getDayOfWeek(today);
+
+  // Define required fields
+  const baseRequiredFields = ["start_time", "end_time", "weather"];
+
+  const conditionalRequiredFields =
+    form.smoke_detected === "yes"
+      ? ["smoke_detection_time", "smoke_source"]
+      : [];
+
+  const requiredFields = [
+    ...baseRequiredFields,
+    ...conditionalRequiredFields,
+  ];
+
+  // Check if form is empty (ignoring auto fields)
+  const meaningfulFields = [
+    "start_time",
+    "end_time",
+    "weather",
+    "notes",
+    "smoke_detection_time",
+    "smoke_source",
+  ];
+
+  const isFormEmpty = meaningfulFields.every(
+    (field) => !form[field] || form[field].trim() === ""
+  );
+
+  if (isFormEmpty) {
+    toast.error("Please fill in the form before submitting");
+    return;
+  }
+
+  // Check for missing required fields
+  const missingFields = requiredFields.filter(
+    (field) => !form[field] || form[field].trim() === ""
+  );
+
+  if (missingFields.length > 0) {
+    toast.error("Please fill in all required fields (*)");
+    return;
+  }
 
     
-    /* 2) find out whether the form contains missing fields */ 
+  // 2. time consistency check
+  const startMinutes = timeToMinutes(form.start_time);
+  const endMinutes = timeToMinutes(form.end_time);
 
-    // only proceed here when the submitted form is not empty and does not contain missing fields 
-    if (!isFormEmpty) {
-      setLoading(true);
-      setError("");
-      try {
-        // Format date and day
-        const formattedDate = formatDate(form.date); // "YYYY-MM-DD"
-        const dayOfWeek = getDayOfWeek(form.date); // "Friday", etc.
+  if (startMinutes && endMinutes && endMinutes <= startMinutes) {
+    toast.error("End time must be later than start time");
+    return;
+  }
 
-        // generate for me lat and long using geolocation api
-        const location = await getUserLocation();
+  // Submit
+  setLoading(true);
+  setError("");
 
-        const payload = {
-          time_opening_windows: timeToMinutes(form.start_time) || 0,
-          time_closing_windows: timeToMinutes(form.end_time) || 0,
-          smoke_detected: form.smoke_detected, // default false for data collection 
-          time_sensing_smoke: timeToMinutes(form.smoke_detection_time) || 0, // default "0000" for data collection 
-          duration: timeToMinutes(form.end_time) - timeToMinutes(form.start_time), 
-          date: formattedDate,
-          day: dayOfWeek,
-          occassion: form.is_special,
-          weather: form.weather,
-          type_of_smoke: form.smoke_source, 
-          lat: location.lat,
-          long: location.lon,
-          notes: form.notes,
-        };
-        setLoadPayload(JSON.stringify(payload));
-        console.log("Submitting payload:");
-        console.log(JSON.stringify(payload));
+  try {
+    const location = await getUserLocation();
 
-        await collectSmokeData(payload);
-        setSubmitted(true);
-        notify(true); 
+    const payload = {
+      time_opening_windows: timeToMinutes(form.start_time),
+      time_closing_windows: timeToMinutes(form.end_time),
+      duration:
+        timeToMinutes(form.end_time) -
+        timeToMinutes(form.start_time),
 
-        setForm({
-          start_time: "",
-          end_time: "",
-          is_special: "no",
-          smoke_detected: "no",
-          smoke_detection_time: "",
-          notes: "",
-          weather: "",
-          smoke_source: "",
-          date: "",
-        });
-      } catch (err) {
-          console.log(err);
-          setError(err.message);
-          toast.error(err); 
-      } finally {
-        setLoading(false);
-      }
-    } else {
-      notify(false, 'Please fill in all the required fields (*)')
-    }
+      smoke_detected: form.smoke_detected,
+      time_sensing_smoke:
+        form.smoke_detected === "yes"
+          ? timeToMinutes(form.smoke_detection_time)
+          : 0,
 
-  };
+      type_of_smoke:
+        form.smoke_detected === "yes"
+          ? form.smoke_source
+          : "",
 
+      date: formattedDate,
+      day: dayOfWeek,
+      occassion: form.is_special,
+      weather: form.weather,
+
+      lat: location.lat,
+      long: location.lon,
+
+      notes: form.notes,
+    };
+
+    console.log("Submitting payload:", payload);
+
+    await collectSmokeData(payload);
+
+    toast.success("Thank you for contributing data to Safi AI 🌱", {
+      duration: 4000, 
+      style: { 
+        color: '#1f2a26', 
+        background: '#fff'
+      },
+    });
+    setSubmitted(true);
+
+    // Reset form (date excluded because it's auto)
+    setForm({
+      start_time: "",
+      end_time: "",
+      is_special: "no",
+      smoke_detected: "no",
+      smoke_detection_time: "",
+      smoke_source: "",
+      weather: "",
+      notes: "",
+    });
+  } catch (err) {
+    console.error(err);
+    toast.error("Submission failed. Please try again.");
+    setError(err.message);
+  } finally {
+    setLoading(false);
+  }
+};
+
+  
   return (
     <div className="page" style={{ backgroundColor: "#f6f7f5", color: "#2f4f44", fontFamily: 'system-ui, sans-serif', minHeight: "100vh" }}>
       <main style={{ padding: "2rem", maxWidth: "600px", margin: "0 auto" }}>

@@ -91,7 +91,7 @@ export default function SmokeRisk({ onClose, embedded = false }) {
       setResult(res);
     } catch (err) {
       // alert("Prediction failed");
-      toast.error('Prediction failed. This may be due to inconsistencies in the data you have filled in. Please try again.', {
+      toast.error('Prediction failed. This is due to either empty fields or inconsistencies in the data you have provided. Try again.', {
         duration: 4000,
         position: 'top-center',
         // icon: '👏',
