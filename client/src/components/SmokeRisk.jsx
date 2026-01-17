@@ -8,6 +8,7 @@ import { fetchWeather } from "../api/weather.js";
 import { weatherCodeToModel } from "../utils/weatherCodeMapper.js";
 import { getUserLocation } from "../utils/location.js";
 import { formatWeatherDisplay } from "../utils/weatherDisplay.js";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function SmokeRisk({ onClose, embedded = false }) {
   const [form, setForm] = useState({
@@ -23,6 +24,7 @@ export default function SmokeRisk({ onClose, embedded = false }) {
   const [weatherToken, setWeatherToken] = useState("");
   const [locationReady, setLocationReady] = useState(false);
 
+  
   useEffect(() => {
     async function initContext() {
       try {
@@ -55,7 +57,18 @@ export default function SmokeRisk({ onClose, embedded = false }) {
 
   const handlePredict = async () => {
     if (!locationReady) {
-      alert("Still fetching location and weather...");
+      // alert("Still fetching location and weather...");
+      toast.loading('Still fetching location and weather...\nMake sure to switch on Location / GPS\nor grant permission for location access.', {
+          duration: 4000,
+          position: 'top-center',
+          // icon: '⏳', 
+          // Styling
+          style: { 
+            color: '#1f2a26', 
+            background: '#fff'
+          },
+          removeDelay: 1000,
+      })
       return;
     }
 
@@ -77,7 +90,22 @@ export default function SmokeRisk({ onClose, embedded = false }) {
       const res = await predictSmoke(payload);
       setResult(res);
     } catch (err) {
-      alert("Prediction failed");
+      // alert("Prediction failed");
+      toast.error('Prediction failed. This may be due to inconsistencies in the data you have filled in. Please try again.', {
+        duration: 4000,
+        position: 'top-center',
+        // icon: '👏',
+        // Styling
+        style: { 
+          color: '#1f2a26', 
+          background: '#fff'
+        },
+        // className: '',
+        iconTheme: {
+          primary: '#d35353ff',
+          secondary: '#fff',
+        },
+      }); 
     } finally {
       setLoading(false);
     }
@@ -85,6 +113,7 @@ export default function SmokeRisk({ onClose, embedded = false }) {
 
   return (
     <div className={`smoke-risk ${embedded ? "embedded" : ""}`}>
+      <Toaster />
       {!embedded && onClose && (
         <button className="modal-close-btn" onClick={onClose}>✕</button>
       )}

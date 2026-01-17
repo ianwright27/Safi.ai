@@ -6,8 +6,32 @@ import { collectSmokeData } from "../api/collect.js";
 import TimeField from "./TimeField.jsx"; // assuming you already have this component
 import Navbar from "./Navbar.jsx";
 import Footer from "./Footer.jsx";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function CollectSmokeDataPage() {
+  
+  const notify = (success, message) =>{
+      if (success) {
+        toast.success(message || 'Data submitted successfully! Thank you for your participation.');
+      } else {
+        toast.error(message || 'Data failed to submit', {
+          duration: 2500,
+          position: 'top-center',
+          // icon: '👏',
+          // Styling
+          style: { 
+            color: '#1f2a26', 
+            background: '#fff'
+          },
+          // className: '',
+          iconTheme: {
+            primary: '#d35353ff',
+            secondary: '#fff',
+          },
+        }); 
+      }
+  }
+  
   const [form, setForm] = useState({
     start_time: "",
     end_time: "",
@@ -30,55 +54,76 @@ export default function CollectSmokeDataPage() {
   };
 
   const handleSubmit = async () => {
-    setLoading(true);
-    setError("");
 
-    try {
-      // Format date and day
-      const formattedDate = formatDate(form.date); // "YYYY-MM-DD"
-      const dayOfWeek = getDayOfWeek(form.date); // "Friday", etc.
+    /* 1) find out whether the form is empty */ 
+    // empty form template 
+    const empty_form = {date:'', end_time: '', is_special: 'no', notes:'', smoke_detected: 'no', smoke_detection_time: '', smoke_source:'', start_time: '', weather:''}; 
+    // check 
+    const isFormEmpty = (form.date == "" && form.end_time == "" && form.is_special == "no" && form.notes == "" && form.smoke_detected == "no" && form.smoke_detection_time == "" && form.smoke_source == "" && form.start_time == "" && form.weather == ""); 
+    // console.log("is form empty:" + isFormEmpty)
+    // console.log(form)
+    // console.log(empty_form)
 
-      // generate for me lat and long using geolocation api
-      const location = await getUserLocation();
+    
+    /* 2) find out whether the form contains missing fields */ 
 
-      const payload = {
-        time_opening_windows: timeToMinutes(form.start_time) || 0,
-        time_closing_windows: timeToMinutes(form.end_time) || 0,
-        smoke_detected: form.smoke_detected, // default false for data collection 
-        time_sensing_smoke: timeToMinutes(form.smoke_detection_time) || 0, // default "0000" for data collection 
-        duration: timeToMinutes(form.end_time) - timeToMinutes(form.start_time), 
-        date: formattedDate,
-        day: dayOfWeek,
-        occassion: form.is_special,
-        weather: form.weather,
-        type_of_smoke: form.smoke_source, 
-        lat: location.lat,
-        long: location.lon,
-        notes: form.notes,
-      };
-      setLoadPayload(JSON.stringify(payload));
-      console.log("Submitting payload:");
-      console.log(JSON.stringify(payload));
+    // only proceed here when the submitted form is not empty and does not contain missing fields 
+    if (!isFormEmpty) {
+      setLoading(true);
+      setError("");
+      try {
+        // Format date and day
+        const formattedDate = formatDate(form.date); // "YYYY-MM-DD"
+        const dayOfWeek = getDayOfWeek(form.date); // "Friday", etc.
 
-      await collectSmokeData(payload);
-      setSubmitted(true);
-      setForm({
-        start_time: "",
-        end_time: "",
-        is_special: "no",
-        smoke_detected: "no",
-        smoke_detection_time: "",
-        notes: "",
-        weather: "",
-        smoke_source: "",
-        date: "",
-      });
-    } catch (err) {
-        console.log(err);
-      setError(err.message || "Failed to submit data");
-    } finally {
-      setLoading(false);
+        // generate for me lat and long using geolocation api
+        const location = await getUserLocation();
+
+        const payload = {
+          time_opening_windows: timeToMinutes(form.start_time) || 0,
+          time_closing_windows: timeToMinutes(form.end_time) || 0,
+          smoke_detected: form.smoke_detected, // default false for data collection 
+          time_sensing_smoke: timeToMinutes(form.smoke_detection_time) || 0, // default "0000" for data collection 
+          duration: timeToMinutes(form.end_time) - timeToMinutes(form.start_time), 
+          date: formattedDate,
+          day: dayOfWeek,
+          occassion: form.is_special,
+          weather: form.weather,
+          type_of_smoke: form.smoke_source, 
+          lat: location.lat,
+          long: location.lon,
+          notes: form.notes,
+        };
+        setLoadPayload(JSON.stringify(payload));
+        console.log("Submitting payload:");
+        console.log(JSON.stringify(payload));
+
+        await collectSmokeData(payload);
+        setSubmitted(true);
+        notify(true); 
+
+        setForm({
+          start_time: "",
+          end_time: "",
+          is_special: "no",
+          smoke_detected: "no",
+          smoke_detection_time: "",
+          notes: "",
+          weather: "",
+          smoke_source: "",
+          date: "",
+        });
+      } catch (err) {
+          console.log(err);
+          setError(err.message);
+          toast.error(err); 
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      notify(false, 'Please fill in all the required fields (*)')
     }
+
   };
 
   return (
@@ -179,15 +224,14 @@ export default function CollectSmokeDataPage() {
           />
         </div>
 
-        {error && <p style={{ color: "red" }}>{error}</p>}
-        {submitted && <p style={{ color: "green" }}>Data submitted successfully!</p>}
+        {/* {notify(false, error) && <p style={{ color: "red" }}>{error}</p>} */}
+        {/* {submitted && <p style={{ color: "green" }}>Data submitted successfully!</p>} */}
 
         <button className="primary full" onClick={handleSubmit} disabled={loading}>
           {loading ? "Submitting..." : "Submit Smoke Data"}
         </button>
       </main>
+      <Toaster />
     </div>
   );
 }
-
-// "time_opening_windows","time_closing_windows","smoke_detected","time_sensing_smoke","duration","date","day","occassion","weather","type_of_smoke"

@@ -9,6 +9,7 @@ import CaseStudies from "./CaseStudies.jsx";
 import SmokeRiskModal from "./SmokeRiskModal.jsx";
 import SmokeRisk from "./SmokeRisk.jsx";
 import CollectDataPage from "./CollectDataPage.jsx";
+import ToastDemo from "./ToastDemo.jsx"; 
 
 export default function LandingPage() {
   const navigate = useNavigate();
@@ -72,6 +73,7 @@ export default function LandingPage() {
           <Route path="/case-studies" element={<CaseStudies />} />
 
           <Route path="/volunteer" element={<CollectDataPage />} />
+          <Route path="/toast-demo" element={<ToastDemo />} />
 
           {/* Mobile full-page SmokeRisk */}
           <Route path="/smoke-risk" element={<SmokeRisk embedded />} />
