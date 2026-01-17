@@ -9,7 +9,7 @@ export default function HeroSection({ openSmokeRisk }) {
         <p className="tagline" style={{ fontSize: "1.25rem", marginBottom: "0.75rem", color: "#3a4f48" }}>
           Predicting smoke pollution before it reaches your home.
         </p>
-        <p className="subtitle" style={{ fontSize: "1rem", marginBottom: "1.5rem", lineHeight: 1.6, color: "#3a4f48" }}>
+        <p className="subtitle" style={{ fontSize: "1rem", marginBottom: "1.5rem", lineHeight: 1.6, color: "#1f2a26" }}>
           An early-warning system that helps neighborhoods reduce exposure to harmful smoke by forecasting risk using environmental patterns.
         </p>
         <button
@@ -37,7 +37,7 @@ export default function HeroSection({ openSmokeRisk }) {
         <h2 style={{ fontSize: "1.75rem", fontWeight: "600", marginBottom: "1rem", color: "#2f4f44" }}>
           Smoke pollution doesn’t announce itself.
         </h2>
-        <p style={{ fontSize: "1rem", lineHeight: 1.6, color: "#3a4f48" }}>
+        <p style={{ fontSize: "1rem", lineHeight: 1.6, color: "#1f2a26" }}>
           In many neighborhoods, smoke from burning waste and other activities appears in patterns — often at specific times, days, or weather conditions. By the time it’s visible or smells strong, exposure has already begun.
         </p>
       </section>
@@ -47,7 +47,7 @@ export default function HeroSection({ openSmokeRisk }) {
         <h2 style={{ fontSize: "1.5rem", fontWeight: "600", marginBottom: "1rem", color: "#2f4f44" }}>
           Safi AI predicts risk before exposure.
         </h2>
-        <ul style={{ listStyleType: "disc", paddingLeft: "1.5rem", color: "#3a4f48", lineHeight: 1.6 }}>
+        <ul style={{ listStyleType: "disc", paddingLeft: "1.5rem", color: "#1f2a26", lineHeight: 1.6 }}>
           <li>Learns patterns from time, day, and weather</li>
           <li>Estimates probability of smoke events</li>
           <li>Helps people make safer daily decisions</li>
