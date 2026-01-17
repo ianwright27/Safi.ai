@@ -4,9 +4,15 @@ import App from "./App";
 import "./styles/global.css";
 import "./styles/landing-page.css";
 import "./styles/predict-page.css";
+import { BrowserRouter } from "react-router-dom";
 
+// ReactDOM.createRoot(document.getElementById("root")).render(
+//   <React.StrictMode>
+//     <App />
+//   </React.StrictMode>
+// );
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
+  <BrowserRouter>
     <App />
-  </React.StrictMode>
+  </BrowserRouter>
 );

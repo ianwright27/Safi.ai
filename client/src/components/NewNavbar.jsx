@@ -38,7 +38,7 @@ export default function NewNavbar({ onTry, onNavClick, activePage }) {
         {/* BRAND */}
         <div
           style={{ fontWeight: "bold", fontSize: "1.25rem", cursor: "pointer" }}
-          onClick={() => onNavClick("home")}
+          onClick={() => onNavClick("/")}
         >
           Safi AI
         </div>
@@ -52,7 +52,7 @@ export default function NewNavbar({ onTry, onNavClick, activePage }) {
             alignItems: "center",
           }}
         >
-          <button style={desktopLinkStyle("home")} onClick={() => onNavClick("home")}>Home</button>
+          <button style={desktopLinkStyle("home")} onClick={() => onNavClick("/")}>Home</button>
           {/* <button style={desktopLinkStyle("process")} onClick={() => onNavClick("process")}>The Process</button> */}
           {/* <button style={desktopLinkStyle("caseStudies")} onClick={() => onNavClick("caseStudies")}>Case Studies</button> */}
           <button style={desktopLinkStyle("volunteer")} onClick={() => onNavClick("volunteer")}>Volunteer</button>
@@ -134,7 +134,7 @@ export default function NewNavbar({ onTry, onNavClick, activePage }) {
           ✕
         </button>
 
-        <button style={linkStyle("home")} onClick={() => { onNavClick("home"); setMenuOpen(false); }}>
+        <button style={linkStyle("home")} onClick={() => { onNavClick("/"); setMenuOpen(false); }}>
           Home
         </button>
         {/* <button style={linkStyle("process")} onClick={() => { onNavClick("process"); setMenuOpen(false); }}>
